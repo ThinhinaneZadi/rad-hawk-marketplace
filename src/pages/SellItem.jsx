@@ -6,6 +6,7 @@
 //   - The listing ID is now guaranteed to be a plain string like "user_1718000000000"
 //     so ItemDetails.jsx can find it with a string comparison (not Number())
 //   - Added item.description field properly so it shows on the details page
+// solved conflict
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
