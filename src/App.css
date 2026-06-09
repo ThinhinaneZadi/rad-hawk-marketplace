@@ -1,64 +1,202 @@
-* {
+/* ============================================================
+   APP.CSS  —  Rad Hawk Marketplace
+   Global resets, animations, base styles
+   ============================================================ */
+
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: white;
+  font-family: Georgia, serif;
+  background-color: #fff;
   color: #111;
+  -webkit-font-smoothing: antialiased;
 }
+
 #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
+
+/* Custom cursor hides default arrow */
+* { cursor: none; }
+
+/* ── Keyframe library ──────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes floatHawk {
+  0%, 100% { transform: scale(1.05) translateY(0px); }
+  50%       { transform: scale(1.05) translateY(-14px); }
+}
+
+/* Reusable animation helper classes */
+.fade-in        { animation: fadeIn  0.6s ease both; }
+.slide-up       { animation: slideUp 0.65s cubic-bezier(.22,1,.36,1) both; }
+.slide-up-delay { animation: slideUp 0.65s cubic-bezier(.22,1,.36,1) 0.15s both; }
+
+/* ── Navbar ────────────────────────────────────────────────── */
+
 nav {
   background-color: #111;
-  color: white;
-  padding: 20px 40px;
+  color: #fff;
+  padding: 0 48px;
+  height: 64px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 3px solid #cc0000;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.35);
 }
 
 nav h2 {
-  color: #e63946;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 26px;
+  letter-spacing: 2px;
+  color: #fff;
+  line-height: 1;
 }
+
+nav h2 span { color: #cc0000; }
 
 nav ul {
   display: flex;
-  gap: 24px;
+  gap: 4px;
   list-style: none;
+  align-items: center;
 }
 
-main {
-  flex: 1;
-  padding: 60px 40px;
-}
-
-main h1 {
-  font-size: 42px;
-  margin-bottom: 12px;
-}
-
-main p {
-  font-size: 18px;
-}
-
-footer {
-  background-color: #111;
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
 nav a {
-  color: white;
+  color: #ccc;
   text-decoration: none;
+  font-family: Georgia, serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 6px 14px;
+  border-radius: 4px;
+  transition: color 0.18s, background 0.18s;
+  position: relative;
 }
 
-nav a:hover {
-  color: #e63946;
+nav a::after {
+  content: '';
+  position: absolute;
+  left: 14px; right: 14px; bottom: 2px;
+  height: 2px;
+  background: #cc0000;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.22s ease;
 }
-* { cursor: none; }
+
+nav a:hover            { color: #fff; background: rgba(255,255,255,0.07); }
+nav a:hover::after     { transform: scaleX(1); }
+nav a.nav-active       { color: #fff; background: rgba(204,0,0,0.18); }
+
+/* Login button in nav */
+.nav-login-btn {
+  background: #cc0000 !important;
+  color: #fff !important;
+  border-radius: 4px;
+  padding: 6px 16px !important;
+  font-weight: 700 !important;
+  transition: background 0.18s, transform 0.15s !important;
+}
+.nav-login-btn:hover {
+  background: #a50000 !important;
+  transform: translateY(-1px);
+}
+.nav-login-btn::after { display: none !important; }
+
+/* ── Main ──────────────────────────────────────────────────── */
+main { flex: 1; }
+
+/* ── Shared buttons ────────────────────────────────────────── */
+.btn-primary {
+  display: inline-block;
+  background: #cc0000;
+  color: #fff;
+  padding: 13px 30px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 2px solid #cc0000;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.15s, box-shadow 0.18s;
+}
+.btn-primary:hover {
+  background: #a50000;
+  border-color: #a50000;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(204,0,0,0.3);
+}
+
+.btn-outline {
+  display: inline-block;
+  background: transparent;
+  color: #111;
+  border: 2px solid #111;
+  padding: 13px 26px;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, transform 0.15s;
+}
+.btn-outline:hover {
+  background: #111;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.btn-outline-white {
+  display: inline-block;
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.5);
+  padding: 13px 26px;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, transform 0.15s;
+}
+.btn-outline-white:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  nav ul { gap: 2px; }
+  nav a  { font-size: 11px; padding: 5px 8px; }
+}

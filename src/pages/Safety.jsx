@@ -1,69 +1,95 @@
-import "../Safety.css";
+// Safety.jsx  (pages/Safety.jsx)
+// Redesigned safety cards:
+//   - No emojis on cards; replaced with colored number badges
+//   - Cleaner card borders and typography
+//   - Slide-in animation on each card
 
-function Safety() {
+import "./Safety.css";
+
+const TIPS = [
+  {
+    title: "Meet in Safe Public Places",
+    body:  "Always meet on campus or in a clearly public area with people around. Recommended spots include the Library atrium, the Student Union cafeteria, or any building lobby during operating hours. Avoid parking lots, isolated hallways, or private spaces.",
+  },
+  {
+    title: "Verify the Item Before Paying",
+    body:  "Inspect the item carefully in person before handing over any money. Make sure it matches the photos and description in the listing. If something looks different, you have every right to walk away.",
+  },
+  {
+    title: "Use Trusted Payment Methods",
+    body:  "Cash is safest for in-person transactions. If you use an app like Venmo or Zelle, only send payment after the item is in your hands. Never wire money or use gift cards for payment — these are common scam tactics.",
+  },
+  {
+    title: "Protect Your Personal Information",
+    body:  "Do not share your student ID number, home address, phone password, banking details, or social media login with any buyer or seller. Keep conversations within the marketplace platform whenever possible.",
+  },
+  {
+    title: "Bring a Friend",
+    body:  "For higher-value transactions, consider bringing a classmate or friend to the meetup. There is safety in numbers, and a second person can help verify the item as well.",
+  },
+  {
+    title: "Report Suspicious Activity",
+    body:  "If a seller pressures you, asks for unusual payment, or a listing seems too good to be true — report it immediately using the Support page. Your report helps protect the entire campus community.",
+  },
+];
+
+export default function Safety() {
   return (
-    <main className="safety-page">
-      <section className="safety-hero">
-        <div className="hero-overlay"></div>
+    <main className="safety-page" style={{ padding: "40px 48px" }}>
 
+      {/* Hero banner */}
+      <section className="safety-hero">
+        <div className="hero-overlay" />
         <div className="hero-content">
           <h1>Marketplace Safety</h1>
           <p>
-            Our college marketplace is designed to help students buy, sell, and
-            exchange items safely within the campus community.
+            Our college marketplace is designed to keep every transaction safe,
+            transparent, and campus-friendly. Read these guidelines before your
+            first buy or sell.
           </p>
         </div>
       </section>
 
-      <section className="safety-section">
-        <h2>Meet in Safe Public Places</h2>
-        <p>
-          Always meet on campus or in a public area with other people nearby.
-          Avoid meeting in isolated locations, parking lots, or private rooms.
-        </p>
-      </section>
+      {/* Intro text */}
+      <p style={{
+        fontFamily: "Georgia, serif",
+        color: "#555", fontSize: "15px", lineHeight: 1.8,
+        maxWidth: "720px", margin: "0 0 32px",
+      }}>
+        Every exchange on Rad Hawk Marketplace happens between real LaGuardia
+        students. While most transactions go smoothly, it's important to follow
+        these six guidelines every time.
+      </p>
 
-      <section className="safety-section">
-        <h2>Verify the Item Before Paying</h2>
-        <p>
-          Check the item carefully before completing the transaction. Make sure
-          it matches the listing description and photos.
-        </p>
-      </section>
+      {/* Tip cards */}
+      <div className="safety-cards-grid">
+        {TIPS.map((tip, i) => (
+          <div key={tip.title} className="safety-card-new" style={{ animationDelay: `${i * 0.08}s` }}>
+            {/* Number badge */}
+            <div className="safety-card-badge">{String(i + 1).padStart(2, "0")}</div>
 
-      <section className="safety-section">
-        <h2>Use Safe Payment Methods</h2>
-        <p>
-          Avoid sending money before seeing the item. Use payment methods you
-          trust and keep a record of the transaction.
-        </p>
-      </section>
+            <div className="safety-card-body">
+              <h3 className="safety-card-title">{tip.title}</h3>
+              <p className="safety-card-text">{tip.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
 
-      <section className="safety-section">
-        <h2>Protect Your Personal Information</h2>
-        <p>
-          Do not share passwords, banking information, student ID numbers, or
-          other sensitive details with buyers or sellers.
-        </p>
-      </section>
-
-      <section className="safety-section">
-        <h2>Report Suspicious Activity</h2>
-        <p>
-          If a listing, message, or user seems suspicious, report it to the
-          marketplace team or campus staff immediately.
-        </p>
-      </section>
-
+      {/* Warning block */}
       <section className="safety-warning">
-        <h2>Important Reminder</h2>
-        <p>
-          If something feels unsafe or too good to be true, pause the
-          transaction. Your safety comes first.
-        </p>
+        <div className="safety-warning-inner">
+          <div className="safety-warn-label">Important</div>
+          <h2>Trust Your Instincts</h2>
+          <p>
+            If something feels off — a seller who won't meet on campus, a price that
+            seems unbelievably low, or pressure to pay before you see the item — pause
+            the transaction and contact support. Your safety is more important than any deal.
+          </p>
+          <a href="/support" className="safety-warn-btn">Contact Support →</a>
+        </div>
       </section>
+
     </main>
   );
 }
-
-export default Safety;

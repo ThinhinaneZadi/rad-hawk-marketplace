@@ -1,14 +1,19 @@
+// ItemCard.jsx
+// Reusable card for marketplace grid.
+// Hover: border turns red, card lifts, "Contact Seller" button slides up.
+// No extra libraries — CSS transitions only.
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CONDITION_COLORS = {
   "Like New": { bg: "#e8f5e9", text: "#2e7d32" },
-  Good: { bg: "#fff8e1", text: "#f57f17" },
-  Used: { bg: "#fce4ec", text: "#c62828" },
+  Good:       { bg: "#fff8e1", text: "#f57f17" },
+  Used:       { bg: "#fce4ec", text: "#c62828" },
 };
 
 export default function ItemCard({ item }) {
-  const [liked, setLiked] = useState(false);
+  const [liked,   setLiked]   = useState(false);
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
 
@@ -25,20 +30,23 @@ export default function ItemCard({ item }) {
         border: hovered ? "2px solid #cc0000" : "2px solid #ebebeb",
         borderRadius: "10px",
         overflow: "hidden",
-        transition: "all 0.22s",
-        transform: hovered ? "translateY(-5px)" : "translateY(0)",
-        boxShadow: hovered
-          ? "0 8px 24px rgba(204,0,0,0.13)"
-          : "0 2px 8px rgba(0,0,0,0.06)",
         cursor: "pointer",
         display: "flex",
         flexDirection: "column",
+
+        /* Lift effect */
+        transform: hovered ? "translateY(-6px)" : "translateY(0)",
+        boxShadow: hovered
+          ? "0 12px 32px rgba(204,0,0,0.14)"
+          : "0 2px 8px rgba(0,0,0,0.06)",
+        transition: "transform 0.22s ease, box-shadow 0.22s ease, border-color 0.18s",
       }}
     >
+      {/* ── Image area ── */}
       <div
         style={{
           background: "#f7f7f7",
-          height: "160px",
+          height: "162px",
           position: "relative",
           borderBottom: "1px solid #f0f0f0",
           flexShrink: 0,
@@ -53,9 +61,13 @@ export default function ItemCard({ item }) {
             height: "100%",
             objectFit: "cover",
             display: "block",
+            /* Slight zoom on hover for a lively feel */
+            transform: hovered ? "scale(1.06)" : "scale(1)",
+            transition: "transform 0.35s ease",
           }}
         />
 
+        {/* Heart / wishlist button */}
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -76,15 +88,16 @@ export default function ItemCard({ item }) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            boxShadow: "0 2px 6px rgba(0,0,0,0.13)",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
             transition: "transform 0.15s",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.15)")}
+          onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.2)")}
           onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
         >
           {liked ? "❤️" : "🤍"}
         </button>
 
+        {/* Posted badge */}
         <span
           style={{
             position: "absolute",
@@ -104,6 +117,7 @@ export default function ItemCard({ item }) {
         </span>
       </div>
 
+      {/* ── Info ── */}
       <div
         style={{
           padding: "13px 15px 15px",
@@ -113,6 +127,7 @@ export default function ItemCard({ item }) {
           flex: 1,
         }}
       >
+        {/* Title + price */}
         <div
           style={{
             display: "flex",
@@ -133,7 +148,6 @@ export default function ItemCard({ item }) {
           >
             {item.title}
           </h3>
-
           <span
             style={{
               color: "#cc0000",
@@ -146,6 +160,7 @@ export default function ItemCard({ item }) {
           </span>
         </div>
 
+        {/* Tags */}
         <div
           style={{
             display: "flex",
@@ -168,7 +183,6 @@ export default function ItemCard({ item }) {
           >
             {item.category}
           </span>
-
           <span
             style={{
               background: condStyle.bg,
@@ -185,6 +199,7 @@ export default function ItemCard({ item }) {
           </span>
         </div>
 
+        {/* Seller + location */}
         <div
           style={{
             display: "flex",
@@ -194,12 +209,11 @@ export default function ItemCard({ item }) {
           }}
         >
           <span style={{ color: "#aaa", fontSize: "11px" }}>{item.seller}</span>
-          <span style={{ color: "#bbb", fontSize: "10px" }}>
-            📍 {item.location}
-          </span>
+          <span style={{ color: "#bbb", fontSize: "10px" }}>📍 {item.location}</span>
         </div>
       </div>
 
+      {/* ── Contact Seller — slides up on hover ── */}
       <div
         style={{
           maxHeight: hovered ? "44px" : "0px",
@@ -224,7 +238,10 @@ export default function ItemCard({ item }) {
             letterSpacing: "1px",
             textTransform: "uppercase",
             cursor: "pointer",
+            transition: "background 0.18s",
           }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "#a50000")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "#cc0000")}
         >
           Contact Seller →
         </button>

@@ -1,114 +1,137 @@
+// CategorySection.jsx
+// Grid of category chips with staggered fade-in and red hover state.
+
 import { useState } from "react";
- 
-const ITEMS = [
-  { id: 1, title: "Nike Hoodie", price: 25, category: "Clothes", condition: "Like New", emoji: "🧥", seller: "@hawk_seller", color: "#ffebee" },
-  { id: 2, title: "MacBook Air", price: 450, category: "Electronics", condition: "Good", emoji: "💻", seller: "@lagcc_student", color: "#f3f3f3" },
-  { id: 3, title: "Sony Headphones", price: 40, category: "Electronics", condition: "Like New", emoji: "🎧", seller: "@techseller22", color: "#f5f5f5" },
-  { id: 4, title: "Calculus Textbook", price: 30, category: "Books", condition: "Good", emoji: "📖", seller: "@mathtutor", color: "#fff8e1" },
-  { id: 5, title: "Desk Lamp", price: 15, category: "Furniture", condition: "Good", emoji: "💡", seller: "@dorm_life", color: "#f9f9f9" },
+
+const CATEGORIES = [
+  { icon: "👕", label: "Clothes" },
+  { icon: "👟", label: "Shoes" },
+  { icon: "📚", label: "Books" },
+  { icon: "💻", label: "Electronics" },
+  { icon: "🪑", label: "Furniture" },
+  { icon: "✏️", label: "School Supplies" },
+  { icon: "👜", label: "Accessories" },
+  { icon: "⚽", label: "Sports" },
+  { icon: "🏠", label: "Home & Kitchen" },
+  { icon: "···", label: "More", isMore: true },
 ];
- 
-function ItemCard({ item }) {
-  const [liked, setLiked] = useState(false);
-  const [hovered, setHovered] = useState(false);
- 
+
+// Stagger keyframe injected once
+const STYLE = `
+  @keyframes catFadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .cat-chip {
+    animation: catFadeUp 0.5s ease both;
+  }
+`;
+
+export default function CategorySection() {
+  const [hovered, setHovered] = useState(null);
+
   return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        background: "#fff",
-        border: hovered ? "2px solid #cc0000" : "2px solid #ebebeb",
-        borderRadius: "10px",
-        overflow: "hidden",
-        transition: "all 0.22s",
-        transform: hovered ? "translateY(-5px)" : "translateY(0)",
-        boxShadow: hovered ? "0 8px 24px rgba(204,0,0,0.12)" : "0 2px 8px rgba(0,0,0,0.06)",
-        cursor: "pointer",
-      }}
-    >
-      {/* Image area */}
-      <div style={{
-        background: item.color,
-        height: "170px",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        fontSize: "72px", position: "relative",
-      }}>
-        {item.emoji}
- 
-        {/* Heart button */}
-        <button
-          onClick={e => { e.stopPropagation(); setLiked(l => !l); }}
-          style={{
-            position: "absolute", top: "10px", right: "10px",
-            background: "rgba(255,255,255,0.9)",
-            border: "none", borderRadius: "50%",
-            width: "32px", height: "32px",
-            cursor: "pointer", fontSize: "15px",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            boxShadow: "0 2px 6px rgba(0,0,0,0.12)",
-          }}
-        >
-          {liked ? "❤️" : "🤍"}
-        </button>
-      </div>
- 
-      {/* Info */}
-      <div style={{ padding: "14px 16px 16px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
-          <h3 style={{ color: "#111", margin: 0, fontSize: "14px", fontWeight: 700 }}>{item.title}</h3>
-          <span style={{ color: "#cc0000", fontWeight: 800, fontSize: "16px" }}>${item.price}</span>
-        </div>
-        <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
-          <span style={{
-            background: "#f5f5f5", color: "#666",
-            fontSize: "10px", fontWeight: 600,
-            padding: "3px 8px", borderRadius: "4px",
-            textTransform: "uppercase", letterSpacing: "0.5px",
-          }}>
-            {item.category}
-          </span>
-          <span style={{ color: "#999", fontSize: "11px" }}>{item.condition}</span>
-        </div>
-        <p style={{ color: "#aaa", fontSize: "11px", margin: "6px 0 0" }}>{item.seller}</p>
-      </div>
-    </div>
-  );
-}
- 
-export default function FeaturedItems() {
-  return (
-    <section style={{ background: "#fafafa", padding: "48px 48px 64px", borderTop: "1px solid #ebebeb" }}>
-      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
- 
-        {/* Header row */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "28px" }}>
-          <h2 style={{
-            fontFamily: "'Bebas Neue', Impact, sans-serif",
-            fontSize: "26px", color: "#111",
-            letterSpacing: "2px", margin: 0,
-            display: "flex", alignItems: "center", gap: "12px",
-          }}>
-            Featured Items
+    <>
+      <style>{STYLE}</style>
+
+      <section
+        id="categories"
+        style={{ background: "#fff", padding: "48px 48px 40px" }}
+      >
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+
+          {/* Section heading */}
+          <h2
+            style={{
+              fontFamily: "'Bebas Neue', Impact, sans-serif",
+              fontSize: "26px",
+              color: "#111",
+              letterSpacing: "2px",
+              margin: "0 0 28px",
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+            }}
+          >
+            Shop by Category
             <div style={{ height: "2px", width: "48px", background: "#cc0000" }} />
           </h2>
-          <a href="/marketplace" style={{
-            color: "#cc0000", fontSize: "13px",
-            fontWeight: 700, textDecoration: "none",
-            letterSpacing: "0.5px", display: "flex", alignItems: "center", gap: "4px",
-          }}>
-            View All →
-          </a>
+
+          {/* Category grid */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(5, 1fr)",
+              gap: "12px",
+            }}
+          >
+            {CATEGORIES.map((cat, i) => (
+              <a
+                key={cat.label}
+                href={
+                  cat.isMore
+                    ? "/marketplace"
+                    : `/marketplace?category=${cat.label}`
+                }
+                className="cat-chip"
+                onMouseEnter={() => setHovered(i)}
+                onMouseLeave={() => setHovered(null)}
+                style={{
+                  /* Stagger the animation delay based on index */
+                  animationDelay: `${i * 0.06}s`,
+
+                  background: hovered === i ? "#cc0000" : "#fff",
+                  border: `1.5px solid ${hovered === i ? "#cc0000" : "#e0e0e0"}`,
+                  borderRadius: "8px",
+                  padding: "20px 12px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "10px",
+                  cursor: "pointer",
+                  textDecoration: "none",
+                  transition: "background 0.18s, border-color 0.18s, transform 0.18s, box-shadow 0.18s",
+                  transform: hovered === i ? "translateY(-4px)" : "translateY(0)",
+                  boxShadow:
+                    hovered === i
+                      ? "0 6px 20px rgba(204,0,0,0.2)"
+                      : "0 1px 4px rgba(0,0,0,0.06)",
+                }}
+              >
+                <span style={{ fontSize: "28px", lineHeight: 1 }}>
+                  {cat.isMore ? (
+                    <span
+                      style={{
+                        fontSize: "20px",
+                        letterSpacing: "2px",
+                        color: hovered === i ? "#fff" : "#999",
+                      }}
+                    >
+                      •••
+                    </span>
+                  ) : (
+                    cat.icon
+                  )}
+                </span>
+
+                <span
+                  style={{
+                    color: hovered === i ? "#fff" : "#222",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    letterSpacing: "0.3px",
+                    textAlign: "center",
+                    fontFamily: "Georgia, serif",
+                    transition: "color 0.18s",
+                  }}
+                >
+                  {cat.label}
+                </span>
+              </a>
+            ))}
+          </div>
         </div>
- 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(190px, 1fr))",
-          gap: "18px",
-        }}>
-          {ITEMS.map(item => <ItemCard key={item.id} item={item} />)}
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

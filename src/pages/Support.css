@@ -1,0 +1,223 @@
+/* Support.css */
+
+.support-page {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 48px 48px;
+}
+
+/* ── Header ── */
+.support-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.support-header h1 {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(32px, 5vw, 48px);
+  letter-spacing: 2px;
+  color: #111;
+  margin-bottom: 12px;
+}
+.support-header p {
+  color: #666;
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-family: Georgia, serif;
+  font-size: 14px;
+}
+
+/* ── Grid ── */
+.support-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+/* ── Shared card ── */
+.support-card {
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* ── FAQ (dark) ── */
+.faq-card {
+  background: #111;
+  border-top: 4px solid #cc0000;
+}
+.faq-card h2 {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 20px;
+  letter-spacing: 1.5px;
+  color: #cc0000;
+  margin-bottom: 24px;
+}
+.faq-item {
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #222;
+}
+.faq-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.faq-item h3 {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.faq-item p {
+  color: #999;
+  line-height: 1.7;
+  font-family: Georgia, serif;
+  font-size: 13px;
+}
+
+/* ── Contact card ── */
+.contact-card {
+  position: relative;
+  overflow: hidden;
+  border-top: 4px solid #cc0000;
+}
+.contact-card-bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(4px);
+  transform: scale(1.08);
+  z-index: 1;
+}
+.contact-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.58);
+  z-index: 2;
+}
+.contact-card-content {
+  position: relative;
+  z-index: 3;
+}
+.contact-card h2 {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 20px;
+  letter-spacing: 1.5px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+/* ── Form ── */
+.support-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.form-group label {
+  color: rgba(255,255,255,0.8);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.req  { color: #ff6b6b; margin-left: 2px; }
+.opt  { color: rgba(255,255,255,0.4); font-size: 10px; font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+.form-group input,
+.form-group textarea {
+  padding: 11px 14px;
+  border: 1.5px solid rgba(255,255,255,0.18);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.09);
+  color: #fff;
+  font-size: 14px;
+  font-family: Georgia, serif;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255,255,255,0.35);
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #cc0000;
+  background: rgba(255,255,255,0.13);
+}
+.form-group textarea { resize: vertical; }
+
+/* Validation error state */
+.input-error {
+  border-color: #ff6b6b !important;
+}
+.error-msg {
+  color: #ff6b6b;
+  font-size: 11px;
+  font-family: Georgia, serif;
+  margin-top: 2px;
+}
+
+/* Submit button */
+.submit-btn {
+  background: #cc0000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 13px 24px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background 0.18s, transform 0.15s;
+  align-self: flex-start;
+}
+.submit-btn:hover {
+  background: #a50000;
+  transform: translateY(-2px);
+}
+
+/* ── Success state ── */
+.form-success {
+  text-align: center;
+  padding: 24px 16px;
+}
+.form-success-icon {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: rgba(46,125,50,0.25);
+  border: 2px solid #66bb6a;
+  color: #66bb6a;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+}
+.form-success-title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.form-success-body {
+  color: rgba(255,255,255,0.7);
+  font-family: Georgia, serif;
+  font-size: 13px;
+  line-height: 1.7;
+  margin-bottom: 4px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .support-grid   { grid-template-columns: 1fr; }
+  .support-page   { padding: 32px 24px; }
+}
