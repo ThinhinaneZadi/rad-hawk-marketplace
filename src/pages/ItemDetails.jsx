@@ -106,6 +106,11 @@ export default function ItemDetails() {
   // ── Full item details page ─────────────────────────────────────
   return (
     <main style={{ padding: "48px", maxWidth: "1100px", margin: "0 auto" }}>
+    <main>
+      <a href="./ContactSeller.jsx">Contact Seller</a>
+      <h1>Item Details Page</h1>
+      <p>Mauricio will build the item details here.</p>
+
 
       {/* Breadcrumb navigation */}
       <div style={{
@@ -361,7 +366,6 @@ export default function ItemDetails() {
           }
         }
       `}</style>
-
     </main>
   );
 }
